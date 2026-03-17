@@ -1,5 +1,4 @@
 [build]
-  base = "postwatchapp/" 
   command = "CI=\"\" npm run build"
   publish = "build/"
 
