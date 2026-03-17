@@ -1,24 +1,9 @@
-# Configuration pour le Déploiement Netlify
-
-Ce fichier sert à configurer Netlify pour qu'il sache où se trouve l'application React et comment la construire, en particulier car elle se trouve dans un sous-dossier (`postwatchapp/postwatchapp`).
-
-```toml
 [build]
-  # On dit à Netlify d'entrer dans le sous-dossier (si votre repo GitHub s'appelle postecritique, 
-  # et que le dossier de l'app est postwatchapp)
-  # Ajustez ceci en fonction de la structure exacte de votre repo sur GitHub.
-  # Si le repo github est directement le dossier postwatchapp, 'base' peut être retiré.
   base = "postwatchapp/" 
-  
-  # La commande pour compiler React
   command = "CI=\"\" npm run build"
-  
-  # Le dossier généré par la commande build (relatif à 'base')
   publish = "build/"
 
-# Configuration pour le système de routage de React (React Router)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-```
