@@ -65,7 +65,10 @@ const AbsenceDashboard = ({ operators, account }) => {
       if (newStatus && operator && operator.posteId && operator.posteId !== 'Backup') {
         const postId = operator.posteId;
         const availableBackup = operators.find(op =>
-          op.id !== id && !op.absent && (op.posteId === 'Backup' || !op.posteId) && op.backupFor?.includes(postId)
+          op.id !== id && 
+          !op.absent && 
+          (op.posteId === 'Backup' || !op.posteId) && 
+          (op.polyvalence || op.backupFor?.includes(postId))
         );
 
         if (availableBackup) {
@@ -89,7 +92,9 @@ const AbsenceDashboard = ({ operators, account }) => {
       } else if (!newStatus && operator && operator.posteId && operator.posteId !== 'Backup') {
         const postId = operator.posteId;
         const fillingBackup = operators.find(op =>
-          op.id !== id && op.posteId === postId && op.backupFor?.includes(postId)
+          op.id !== id && 
+          op.posteId === postId && 
+          (op.polyvalence || op.backupFor?.includes(postId))
         );
 
         if (fillingBackup) {

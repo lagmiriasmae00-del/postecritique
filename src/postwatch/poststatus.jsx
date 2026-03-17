@@ -58,7 +58,7 @@ const PostStatus = ({ operators, account }) => {
       const availableBackupsForThis = operators.filter(op => 
         (op.posteId === 'Backup' || op.posteId === '') && 
         !op.absent && 
-        op.backupFor?.includes(post.id)
+        (op.polyvalence || op.backupFor?.includes(post.id))
       );
 
       return {
@@ -216,22 +216,15 @@ const PostStatus = ({ operators, account }) => {
                       </div>
                     </td>
                     <td className="px-8 py-4">
-                      <div className="flex flex-wrap gap-2">
-                        {group.occupied.map(post => (
-                          <button
-                            key={post.id}
-                            onClick={() => setShowOperatorDetail(post)}
-                            className="group/post relative px-4 py-3 rounded-2xl bg-emerald-50/50 border border-emerald-100/50 hover:bg-white hover:border-emerald-500 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300 flex items-center gap-3 overflow-hidden"
-                          >
-                            <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/10 group-hover/post:scale-110 transition-transform">
-                              <User size={14} />
-                            </div>
-                            <div className="text-left">
-                              <p className="text-[11px] font-black text-gray-900 leading-none mb-1 uppercase tracking-tight">{post.nom}</p>
-                              <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">{post.occupiedOps[0]?.prenom}</p>
-                            </div>
-                          </button>
-                        ))}
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3 px-5 py-2.5 bg-emerald-50 text-emerald-700 rounded-2xl border border-emerald-100 font-bold text-sm shadow-sm">
+                          <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/10">
+                            <Activity size={16} />
+                          </div>
+                          <span className="uppercase tracking-tight">
+                            {group.occupied.length} Poste{group.occupied.length > 1 ? 's' : ''} occupé{group.occupied.length > 1 ? 's' : ''}
+                          </span>
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -415,13 +408,13 @@ const PostStatus = ({ operators, account }) => {
 
             <div className="px-10 py-10">
               <div className="mb-6 flex items-center justify-between">
-                <h3 className="text-xs font-black text-gray-400 uppercase tracking-[0.2em]">Renforts Disponibles ({selectedPost.availableBackupsCount})</h3>
-                <span className="px-3 py-1 bg-navy-500 text-white text-[9px] font-black rounded-lg uppercase tracking-widest shadow-lg shadow-navy-500/20">BACKUPS DÉDIÉS</span>
+                <h3 className="text-xs font-black text-gray-400 uppercase tracking-[0.2em]">Renforts Disponibles ({operators.filter(op => (op.posteId === 'Backup' || op.posteId === '') && !op.absent && (op.polyvalence || op.backupFor?.includes(selectedPost.id))).length})</h3>
+                <span className="px-3 py-1 bg-navy-500 text-white text-[9px] font-black rounded-lg uppercase tracking-widest shadow-lg shadow-navy-500/20">POOL DE POLYVALENCE</span>
               </div>
 
               <div className="space-y-4 max-h-[400px] overflow-y-auto pr-4 custom-scrollbar">
-                {operators.filter(op => (op.posteId === 'Backup' || op.posteId === '') && !op.absent && op.backupFor?.includes(selectedPost.id)).length > 0 ? (
-                  operators.filter(op => (op.posteId === 'Backup' || op.posteId === '') && !op.absent && op.backupFor?.includes(selectedPost.id)).map((op, index) => (
+                {operators.filter(op => (op.posteId === 'Backup' || op.posteId === '') && !op.absent && (op.polyvalence || op.backupFor?.includes(selectedPost.id))).length > 0 ? (
+                  operators.filter(op => (op.posteId === 'Backup' || op.posteId === '') && !op.absent && (op.polyvalence || op.backupFor?.includes(selectedPost.id))).map((op, index) => (
                     <button
                       key={op.id}
                       onClick={() => handleAffectation(op.id, selectedPost.id)}

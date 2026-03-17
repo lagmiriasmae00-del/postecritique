@@ -322,6 +322,7 @@ const OperatorList = ({ operators, account }) => {
                                         });
                                     }}>
                                     <option value="">Sélectionner un Poste</option>
+                                    <option value="Backup" className="font-black text-navy-600 bg-navy-50">-- BACKUP / POOL DE POLYVALENCE --</option>
                                     {postes.map(p => (
                                         <option key={p.id} value={p.id}>{p.nom} ({lignes.find(l => l.id === p.ligneId)?.nom || 'N/A'})</option>
                                     ))}

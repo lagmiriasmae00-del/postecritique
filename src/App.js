@@ -40,18 +40,18 @@ const LoginPage = ({ onLogin }) => {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 font-sans">
       <div className="w-full max-w-[500px] bg-white rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] p-10 flex flex-col items-center">
-        
+
         {/* Header with Logos */}
         <div className="w-full flex justify-between items-center mb-12">
-          <img 
-            src="/logo_opex-removebg-preview%20(1)%20(4)opex.png" 
-            alt="OPEX Logo" 
-            className="h-10 object-contain" 
+          <img
+            src="/logo_opex-removebg-preview%20(1)%20(4)opex.png"
+            alt="OPEX Logo"
+            className="h-10 object-contain"
           />
-          <img 
-            src="/image.png" 
-            alt="LEONI Logo" 
-            className="h-10 object-contain" 
+          <img
+            src="/image.png"
+            alt="LEONI Logo"
+            className="h-10 object-contain"
           />
         </div>
 
@@ -73,7 +73,7 @@ const LoginPage = ({ onLogin }) => {
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="pdb, carousel ou lowdash"
+                placeholder="pdb, carousel ou leoni"
                 className="w-full bg-white border border-gray-100 rounded-xl py-4 pl-12 pr-4 text-sm font-medium text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all"
                 required
               />
@@ -142,13 +142,13 @@ const App = () => {
         // Mapping email to account metadata
         const accounts = {
           'pdb': { id: 'pdb_dg', name: 'PDB (DG)' },
-          'lowdash': { id: 'lowdash', name: 'LOWDASH' }
+          'lowdash': { id: 'lowdash', name: 'SEGMENT' }
         };
-        
+
         // Match based on email prefix or custom mapping
         const emailKey = user.email.split('@')[0].toLowerCase();
         const account = accounts[emailKey] || { id: 'pdb_dg', name: 'PDB (DG)' };
-        
+
         setUserAccount(account);
       } else {
         setUserAccount(null);
@@ -198,7 +198,7 @@ const App = () => {
   return (
     <Router>
       <div className="flex bg-gray-50 min-h-screen font-sans text-gray-900 selection:bg-purple-200 selection:text-purple-900">
-        <Sidebar account={userAccount} />
+        <Sidebar account={userAccount} onLogout={handleLogout} />
         <div className="flex-1 flex flex-col ml-[280px] min-w-0 transition-all duration-300">
           <TopBar onLogout={handleLogout} account={userAccount} />
           <main className="flex-1 p-8 lg:p-10 max-w-[1600px] w-full mx-auto relative overflow-x-hidden">
