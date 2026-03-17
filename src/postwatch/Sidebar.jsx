@@ -21,8 +21,8 @@ const Sidebar = ({ account }) => {
           <img src="/logo_opex-removebg-preview%20(1)%20(4)opex.png" alt="Logo" className="w-8 h-8 object-contain brightness-0 invert" />
         </div>
         <div>
-          <h1 className="text-xl font-black tracking-tight">PosteWatch</h1>
-          <p className="text-[10px] font-bold text-blue-300 uppercase tracking-widest opacity-60">{account?.name || 'Operations Suite'}</p>
+          <h1 className="text-xl font-black tracking-tight uppercase">{account?.name || 'PosteWatch'}</h1>
+          <p className="text-[10px] font-bold text-blue-300 uppercase tracking-widest opacity-60">Gestion Opérationnelle</p>
         </div>
       </div>
 
